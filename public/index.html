@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smart Translator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🌐 Smart Translator</h1>
+
+      <div class="controls">
+        <label for="langSelect">Translate to:</label>
+        <select id="langSelect" onchange="toggleCustomLangInput(this)">
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="ur">Urdu</option>
+          <option value="es">Spanish</option>
+          <option value="de">German</option>
+          <option value="other">Other (custom)</option>
+        </select>
+
+        <!-- Custom input, hidden by default -->
+        <input
+          type="text"
+          id="customLang"
+          placeholder="e.g., it, ru"
+          style="display: none"
+          maxlength="5"
+        />
+
+        <button onclick="translateText()">Translate</button>
+      </div>
+
+      <div class="card-layout">
+        <div class="card">
+          <h3>Input</h3>
+          <textarea id="textInput" placeholder="Type something..."></textarea>
+        </div>
+        <div class="card result-card">
+          <h3>Result</h3>
+          <div id="result">Translation will appear here.</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleCustomLangInput(selectElement) {
+        const customInput = document.getElementById("customLang");
+        if (selectElement.value === "other") {
+          customInput.style.display = "inline-block";
+        } else {
+          customInput.style.display = "none";
+          customInput.value = "";
+        }
+      }
+
+      async function translateText() {
+        const text = document.getElementById("textInput").value;
+        const langSelect = document.getElementById("langSelect");
+        const selected = langSelect.value;
+        const customLang = document
+          .getElementById("customLang")
+          .value.trim()
+          .toLowerCase();
+        const toLang =
+          selected === "other" && customLang ? customLang : selected;
+
+        if (!toLang || toLang.length < 2) {
+          alert(
+            "Please select or enter a valid language code (like 'it' for Italian)."
+          );
+          return;
+        }
+
+        const res = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, toLang }),
+        });
+
+        const data = await res.json();
+        document.getElementById("result").innerHTML =
+          data.translatedText || "Error occurred";
+      }
+    </script>
+  </body>
+</html>

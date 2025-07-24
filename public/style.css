@@ -1,0 +1,125 @@
+:root {
+  --primary-color: #50b1a2;
+  --primary-dark: #3a8a7d;
+  --primary-light: #7ac9bb;
+  --secondary-color: #f8f9fa;
+  --accent-color: #ff914d;
+  --dark-color: #1a1a2e;
+  --light-color: #f8f9fa;
+  --gray-color: #e9ecef;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: var(--primary-dark);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+select,
+button {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--gray-color);
+  background-color: white;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+.card-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+}
+
+textarea {
+  width: 92%;
+  height: 200px;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  resize: vertical;
+  outline: none;
+}
+
+.result-card #result {
+  height: 200px;
+  padding: 1rem;
+  border: 1px dashed var(--accent-color);
+  border-radius: 6px;
+  background-color: var(--gray-color);
+  overflow-y: auto;
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+
+#customLang {
+  padding: 0.5rem;
+  border: 1px solid var(--gray-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-layout {
+    grid-template-columns: 1fr;
+  }
+
+  textarea,
+  .result-card #result {
+    height: 150px;
+  }
+}
