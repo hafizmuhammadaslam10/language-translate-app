@@ -25,8 +25,6 @@ This app uses [`google-translate-api-x`](https://www.npmjs.com/package/google-tr
 - Prototypes and mini tools
 - Learning or experimentation
 
-> ⚠️ **Note:** Since it scrapes Google Translate, it’s unofficial and may break if Google changes its structure.
-
 ---
 
 ## 🛠️ Tech Stack
@@ -43,6 +41,13 @@ This app uses [`google-translate-api-x`](https://www.npmjs.com/package/google-tr
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/node-translator-app.git
-cd node-translator-app
+git clone https://github.com/hafizmuhammadaslam10/language-translate-app.git
+cd language-translate-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
 ```
