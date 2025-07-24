@@ -29,7 +29,7 @@
           maxlength="5"
         />
 
-        <button onclick="translateText()">Translate</button>
+        <button id="translateBtn" onclick="translateText()">Translate</button>
       </div>
 
       <div class="card-layout">
@@ -56,6 +56,10 @@
       }
 
       async function translateText() {
+        const btn = document.getElementById("translateBtn");
+        btn.disabled = true;
+        btn.innerText = "Translating...";
+
         const text = document.getElementById("textInput").value;
         const langSelect = document.getElementById("langSelect");
         const selected = langSelect.value;
@@ -70,18 +74,27 @@
           alert(
             "Please select or enter a valid language code (like 'it' for Italian)."
           );
+          btn.disabled = false;
+          btn.innerText = "Translate";
           return;
         }
 
-        const res = await fetch("/api/translate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, toLang }),
-        });
+        try {
+          const res = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, toLang }),
+          });
 
-        const data = await res.json();
-        document.getElementById("result").innerHTML =
-          data.translatedText || "Error occurred";
+          const data = await res.json();
+          document.getElementById("result").innerHTML =
+            data.translatedText || "Error occurred";
+        } catch (err) {
+          document.getElementById("result").innerHTML = "Translation failed.";
+        }
+
+        btn.disabled = false;
+        btn.innerText = "Translate";
       }
     </script>
   </body>
